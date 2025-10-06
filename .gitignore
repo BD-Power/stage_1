@@ -1,0 +1,5 @@
+datalake/
+datamarts/
+*.pyc
+__pycache__/
+._*
