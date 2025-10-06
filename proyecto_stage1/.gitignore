@@ -1,6 +1,0 @@
-datalake/
-datamarts/
-control/
-__pycache__/
-*.csv
-*.txt
