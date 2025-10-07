@@ -56,12 +56,17 @@ The pipeline implemented in this project consists of the following components:
    - **By author initial** → `/datalake_alpha/A-Z/`
 
 5. **Data Mart (Inverted Index):**  
-   Builds a word–book mapping in both **JSON** and **TXT** formats for search efficiency.
-
-6. **Metadata Management:**  
-   Two lightweight databases (**SQLite** and **TinyDB**) are compared for performance during insertion and queries.
-
-7. **Visualization Layer:**  
+   Builds a word–book mapping (`word → {book_ids}`) from the downloaded texts.  
+   The index is stored in both **JSON** and **TXT** formats inside the `datamarts/` folder to evaluate storage trade-offs.  
+   JSON offers structured access and compatibility, while TXT provides lighter, faster disk writing for small datasets.
+   
+7. **Metadata Management:**  
+   A synthetic dataset of 300 book records (ID, title, author, language) is generated to simulate a metadata mart.  
+   Two lightweight database engines — **SQLite** (relational) and **TinyDB** (document-oriented) — are benchmarked for  
+   insertion and query performance.  
+   The results show TinyDB is slightly faster for insert operations, whereas SQLite provides faster lookups and richer query capabilities.  
+   Both database files are stored under `datamarts/` for comparison (`metadata_sqlite.db` and `metadata_tinydb.json`).
+8. **Visualization Layer:**  
    Performance charts are generated using **Matplotlib** for comparisons between strategies.
 
 ---
@@ -84,7 +89,8 @@ The pipeline implemented in this project consists of the following components:
 
 ## 4. Dependencies and Environment Setup
 
-Before running the notebook, make sure you have **Python 3.11+** and install the required libraries
+Before running the notebook, make sure you have **Python 3.11+** and install the required libraries 
+(pip install requests matplotlib tinydb)
 
 
 ---
@@ -140,11 +146,14 @@ datalake_alpha/
  └── A-Z/{id}.body.txt
 
 datamarts/
- ├── inverted_index.json
- └── inverted_index.txt
+ ├── inverted_index.json        
+ ├── inverted_index.txt          
+ ├── metadata_sqlite.db          
+ └── metadata_tinydb.json       
 
-proyecto_stage1/
- └── code.ipynb
+code.ipynb                      
+.gitignore                      
+README.md    
 
 ---
 ## 7. Data Lake Comparison
@@ -171,12 +180,17 @@ while JSON is more suitable for structured storage and scalability.
 
 ---
 ## 9. Metadata Benchmark
-Database	Insert (s)	Query (s)	Results
-SQLite	0.0113	0.0009	1
-TinyDB	0.0019	0.0017	1
+To evaluate lightweight database options for storing metadata, we simulated 300 book records and measured insertion and query performance using **SQLite** and **TinyDB**.
 
- SQLite provides better performance for larger and structured data,
-while TinyDB is lightweight and ideal for quick testing or small-scale environments.
+| **Database** | **Insert (s)** | **Query (s)** | **Results** |
+|---------------|----------------|----------------|--------------|
+| SQLite        | ≈ 0.0111       | ≈ 0.00037      | 1 |
+| TinyDB        | ≈ 0.00468      | ≈ 0.00210      | 1 |
+
+**Interpretation:**  
+TinyDB is optimized for lightweight data and rapid insertions, making it ideal for prototyping and small-scale setups.  
+SQLite, while slightly slower for inserts, provides better query efficiency and stronger structure, suitable for larger or relational workloads.
+
 
 ---
 ## 10. Design Decisions Summary
