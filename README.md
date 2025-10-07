@@ -1,2 +1,197 @@
-# Big-Data
-Trabajo Practico de Big Data GCID ULPGC
+#  Big Data – Stage 1: Search Engine Project
+
+**University:** ULPGC – GCID  
+**Academic Year:** 2024/2025  
+**Group:** **BD Power**
+
+**Members:**  
+- Jaime Rivero Santana  
+- Gabriel Munteanu Cabrera  
+- Andrea Dumpiérrez Medina  
+- Agustín Darío Casebonne  
+
+**Repository:** [https://github.com/Gabrii8/Big-Data](https://github.com/Gabrii8/Big-Data)
+
+---
+
+##  Project Description
+
+This project implements **Stage 1** of a text-based search engine.  
+The goal is to design and develop the **data layer** of the system —  
+a complete pipeline that downloads books from **Project Gutenberg**, stores them in a **datalake**,  
+builds a **datamart** with **inverted indexes**, and compares different **storage and performance strategies**.
+
+---
+
+##  System Architecture
+
+The overall data pipeline is as follows:
+Project Gutenberg → Crawler → Control Layer → Datalake → Datamart (Inverted Index) → Visualization
+
+
+### 🔹 Components
+
+- **Crawler:** Downloads raw text files (`pg{id}.txt`) from Project Gutenberg and splits each into two parts:  
+  `header` (metadata) and `body` (main content).
+
+- **Control Layer:** Prevents re-downloading and keeps a record of all processed books.  
+  Files: `control_log.csv` and `downloaded_books.txt`.
+
+- **Datalake:**  
+  - **Version A:** Organized by **date and hour** (`datalake/YYYYMMDD/HH/`)  
+  - **Version B:** Organized **alphabetically by author initial** (`datalake_alpha/A/...`)
+
+- **Datamart:** Builds an **inverted index** mapping words to book IDs.  
+  Two storage formats are compared:  
+  - `inverted_index.json` → structured and machine-readable  
+  - `inverted_index.txt` → plain text, human-readable  
+
+- **Visualization:** Uses `matplotlib` to generate bar charts comparing performance metrics.
+
+---
+
+##  Functionalities
+
+- Automatic book downloading from **Project Gutenberg**  
+- Marker detection for `*** START/END OF THE PROJECT GUTENBERG EBOOK ***`  
+- Splitting of books into `header.txt` and `body.txt`  
+- Control log to prevent duplicates  
+- Two datalake organizations: **Date/Hour** and **Author**  
+- Inverted index generation and saving (JSON & TXT)  
+- Visual comparison through **performance charts**
+
+---
+
+##  Dependencies
+
+Before running the notebook, install the following Python packages (**Python ≥ 3.11 required**):
+
+```bash
+pip install requests matplotlib
+
+
+Detailed Setup and Execution Instructions
+
+
+1️. Clone the repository
+git clone https://github.com/Gabrii8/Big-Data.git
+cd Big-Data/proyecto_stage1
+
+2. Open the project
+Open the file code.ipynb in Visual Studio Code or Jupyter Notebook.
+
+
+
+3️. Run all cells in order
+Import modules and utility functions
+
+Run download_book() → Creates the datalake organized by date/hour
+
+Run download_book_alpha() → Creates the datalake organized by author
+
+Run build_inverted_index() → Builds and saves the inverted index (JSON and TXT)
+
+Run compare_datalakes() → Compares both datalake strategies
+
+(Optional) Execute the loop to download up to 300 books for large-scale testing
+
+
+
+4️. Visualize the results
+
+The notebook automatically generates:
+
+Figure 1: JSON vs TXT (Inverted Index performance)
+
+Figure 2: Datalake comparison (Date/Hour vs Author)
+
+Figure 3: Metadata benchmark (SQLite vs TinyDB)
+
+
+ Repository Structure
+control/
+  ├── control_log.csv
+  └── downloaded_books.txt
+
+datalake/
+  └── YYYYMMDD/HH/{id}.header.txt | {id}.body.txt
+
+datalake_alpha/
+  └── A-Z/{id}.header.txt | {id}.body.txt
+
+datamarts/
+  ├── inverted_index.json
+  └── inverted_index.txt
+
+proyecto_stage1/
+  └── code.ipynb
+
+
+
+Main Results
+Inverted Index (Datamart)
+Strategy	Format	Time (s)
+JSON	inverted_index.json	1.1468
+TXT	inverted_index.txt	0.6323
+
+Datalake
+Strategy	Structure	Time (s)
+Date/Hour	datalake/YYYYMMDD/HH/	7.611
+Author	datalake_alpha/A-Z/	45.224
+
+
+Metadata
+System	Insert (s)	Query (s)
+SQLite	0.0113	0.0009
+TinyDB	0.0019	0.0017
+
+
+
+Design Decisions
+
+Datalake Strategies:
+Both versions are included since they serve different analytical goals:
+
+Date/Hour: Ideal for time-based tracking and automation
+
+Author: More intuitive and user-friendly for browsing
+
+Datamart:
+JSON offers structure and extensibility, while TXT provides faster reads.
+
+Metadata Storage:
+SQLite is more robust and scalable, while TinyDB is lightweight for simple runs.
+
+
+
+Future Work
+
+Add text preprocessing (stopword removal, stemming, lemmatization)
+
+Implement Boolean and ranked queries (TF-IDF)
+
+Parallelize download and indexing
+
+Integrate persistent metadata storage (SQLite or MongoDB)
+
+Develop a simple web interface for searching books interactively
+
+
+Credits
+Text data from Project Gutenberg
+
+Language: Python 3.11
+
+Main libraries: requests, pathlib, collections, json, matplotlib, re, time
+
+
+Notes
+The dataset is automatically generated by the notebook.
+It downloads public domain books from Project Gutenberg (IDs: 43, 56, 84, 1342, etc.).
+
+
+Deliverables
+This repository includes:
+code.ipynb → main notebook
+Folders: datalake, datalake_alpha, datamarts, control
+Report: Stage1_Report_BD_Power.pdf
