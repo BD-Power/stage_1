@@ -91,8 +91,8 @@ Before running the notebook, make sure you have **Python 3.11+** and install the
 
 ## 5. Setup and Execution Instructions
 #### Step 1: Clone the Repository
-git clone https://github.com/Gabrii8/Big-Data.git
-cd Big-Data/proyecto_stage1
+git clone https://github.com/BD-Power/stage_1.git
+cd stage_1
 
 #### Step 2: Open the Notebook
 
