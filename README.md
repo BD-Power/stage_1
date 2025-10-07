@@ -109,6 +109,8 @@ Figure 3: Metadata benchmark (SQLite vs TinyDB)
 
 
  Repository Structure
+
+code.ipynb
 control/
   ├── control_log.csv
   └── downloaded_books.txt
@@ -123,10 +125,7 @@ datamarts/
   ├── inverted_index.json
   └── inverted_index.txt
 
-proyecto_stage1/
-  └── code.ipynb
-
-
+ 
 
 Main Results
 Inverted Index (Datamart)
