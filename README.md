@@ -16,7 +16,7 @@
 - Andrea Dumpiérrez Medina  
 - Agustín Darío Casebonne  
 
-**Repository URL:** [https://github.com/Gabrii8/Big-Data](https://github.com/Gabrii8/Big-Data)
+**Repository URL:** [https://github.com/BD-Power/stage_1](https://github.com/BD-Power/stage_1)
 
 ---
 
