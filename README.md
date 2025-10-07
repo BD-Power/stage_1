@@ -4,7 +4,7 @@
 
 ### University
 **ULPGC – GCID (Ciencias e Ingeniería de Datos)**  
-**Academic Year:** 2024 / 2025  
+**Academic Year:** 2025 / 2026  
 **Course:** Big Data  
 
 ### Group Information
@@ -234,15 +234,4 @@ Data Source: Project Gutenberg
 Programming Language: Python 3.11
 Libraries Used: requests, pathlib, json, collections, matplotlib, re, time, tinydb, sqlite3
 Development Environment: Visual Studio Code with Jupyter extension
-
----
-## 14. Deliverables
-
-code.ipynb → Main notebook.
-
-control/, datalake/, datalake_alpha/, datamarts/ → Data layers.
-
-Stage1_Report_BD_Power.pdf → Final written report.
-
-README.md → This documentation file.
 
